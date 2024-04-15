@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Todo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container p-3">
+    <h1>Add Todo</h1>
+    <form th:action="@{/todo/add}" method="post">
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" required />
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="starred" name="starred" />
+            <label class="form-check-label" for="starred">Starred</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

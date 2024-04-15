@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Todo</title>
+</head>
+<body>
+<div class="container p-3">
+<h1>Todo</h1>
+<!--------------------    add button------------------------->
+<div class="p-3">
+    <a href="/todo/add" class="btn btn-primary btn-lg">Add Todo</a>
+</div>
+
+<!-- ------------  view todo list  ------------------------   -->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>task</th>
+        <th>Complete</th>
+        <th>Starred</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Table rows will be added dynamically using Thymeleaf -->
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.description}"></td>
+        <td>
+            <form th:action="@{/todo/update/complete/{id}(id=${todo.id})}" method="post">
+<!--                <input type="hidden" name="_method" value="put" />-->
+                <input type="checkbox" th:checked="${todo.completed}" onchange="submitForm(this)" />
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/todo/update/starred/{id}(id=${todo.id})}" method="post">
+<!--                <input type="hidden" name="_method" value="put" />-->
+                <input type="checkbox" th:checked="${todo.starred}" onchange="submitForm(this)"/>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/todo/delete/{id}(id=${todo.id})}" method="post">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--<form th:action="@{/todos}" method="post">-->
+<!--    <input type="text" name="description" placeholder="Enter todo description" required/>-->
+<!--    <button type="submit">Add Todo</button>-->
+<!--</form>-->
+</div>
+</body>
+
+
+
+<script>
+    function submitForm(element) {
+        element.form.submit();
+    }
+</script>
+
+</html>
